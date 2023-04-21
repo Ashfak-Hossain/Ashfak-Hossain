@@ -1,5 +1,4 @@
 <h1 align="center">Hi 👋, I'm Ashfak Hossain Evan</h1>
-<h3 align="center">A Competitive Programmer</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=0e75b6&style=flat" alt="ashfak-hossain" /> </p>
 
