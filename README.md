@@ -6,7 +6,7 @@
 
 - I’m currently working on **C++ Online Judge Problems**
 
-- I’m currently learning **C++, Java, Ruby, JS, React**
+- I’m currently learning **C++, Java, Python, JS and FrameWorks**
 
 - 📝 I regularly write articles on [https://ashfakhossain.blogspot.com/](https://ashfakhossain.blogspot.com/)
 
