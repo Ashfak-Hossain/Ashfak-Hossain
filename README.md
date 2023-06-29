@@ -1,5 +1,11 @@
-<h1 align="center">Hi, I'm Ashfak Hossain Evan</h1>
-<h3 align="center">A Competitive Programmer</h3>
+![header](https://github.com/Ashfak-Hossain/Ashfak-Hossain/assets/73357589/8cbdee9e-62c8-413b-bf6d-364fb563b9a4)
+
+<h1 align="center">Hi, I'm <a href="https://github.com/Ashfak-Hossain">Ashfak Hossain Evan<a><img src="https://github.com/Kathryn-Jie/Kathryn-Jie/blob/main/wave.gif" width="60px"/></h1>
+  
+<h3 align="center">Competitive Programmer</h3>
+
+<h4 align="center">Beyond the realm of competitive programming, I am driven by a deep passion for applying my skills to solve real-world challenges. I firmly believe that the problem-solving mindset and meticulous attention to detail cultivated through my experience in competitive programming are invaluable assets in any software development endeavor.</h4>
+
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=0e75b6&style=flat" alt="ashfak-hossain" /> </p>
 
