@@ -8,6 +8,7 @@
 
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=0e75b6&style=flat" alt="ashfak-hossain" /> </p>
+<p align="left"> <img src="https://codeforces-readme-stats.vercel.app/api/badge?username=_Berlin_" alt="Codeforces Badge" width="200" /> </p>
 
 <h3 align="left">Connect with me:</h3>
 <p align="center">
