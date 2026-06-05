@@ -1,48 +1,94 @@
+<!-- ════════════════════════════ BANNER ════════════════════════════ -->
 ![header](https://github.com/Ashfak-Hossain/Ashfak-Hossain/assets/73357589/8cbdee9e-62c8-413b-bf6d-364fb563b9a4)
 
-<h1 align="center">Hi, I'm <a href="https://github.com/Ashfak-Hossain">Ashfak Hossain Evan<a><img src="https://github.com/Kathryn-Jie/Kathryn-Jie/blob/main/wave.gif" width="60px"/></h1>
-  
-<h3 align="center">Competitive Programmer</h3>
-
-<h4 align="center">Beyond the realm of competitive programming, I am driven by a deep passion for applying my skills to solve real-world challenges. I firmly believe that the problem-solving mindset and meticulous attention to detail cultivated through my experience in competitive programming are invaluable assets in any software development endeavor.</h4>
-
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=0e75b6&style=flat" alt="ashfak-hossain" /> </p>
-<p align="left"> <img src="https://codeforces-readme-stats.vercel.app/api/badge?username=_Berlin_" alt="Codeforces Badge" width="200" /> </p>
-
-<h3 align="left">Connect with me:</h3>
-<p align="center">
-<a href="https://dev.to/berlin" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/devto.svg" alt="berlin" height="30" width="40" /></a>
-<a href="https://twitter.com/ashfak_evan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="ashfak_evan" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/ashfak hossain evan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="ashfak hossain evan" height="30" width="40" /></a>
-<a href="https://stackoverflow.com/users/19765322" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="19765322" height="30" width="40" /></a>
-<a href="https://fb.com/ashfak hossain" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="ashfak hossain" height="30" width="40" /></a>
-<a href="https://www.codechef.com/users/evan42" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/codechef.svg" alt="evan42" height="30" width="40" /></a>
-<a href="https://www.hackerrank.com/evan1234_ek" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="evan1234_ek" height="30" width="40" /></a>
-<a href="https://codeforces.com/profile/berlin11" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/codeforces.svg" alt="berlin11" height="30" width="40" /></a>
-<a href="https://www.leetcode.com/user8670vw" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="user8670vw" height="30" width="40" /></a>
-<a href="https://www.topcoder.com/members/berlin11" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/topcoder.svg" alt="berlin11" height="30" width="40" /></a>
-<a href="/https://rss.app/feeds/qzo1f8i5nxoeh82f.xml" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/rss.svg" alt="https://rss.app/feeds/qzo1f8i5nxoeh82f.xml" height="30" width="40" /></a>
-</p>
-
-<h3 align="left">Languages and Tools:</h3>
-<p align="center"> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/django.svg" alt="django" width="40" height="40"/> </a> <a href="https://dotnet.microsoft.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://redux.js.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" alt="redux" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
-
-
-
+<!-- ════════════════════════════ INTRO ═════════════════════════════ -->
+<h1 align="center">Hi, I'm Ashfak Hossain Evan </h1>
 
 <p align="center">
-    <a href="https://github.com/Jatin-Shihora/github-readme-streak-stats">
-        <img title="🔥 Get streak stats for your profile at git.io/streak-stats" alt="Ashfak-Hossain's streak" src="https://github-readme-streak-stats.herokuapp.com/?user=Ashfak-Hossain&theme=tokyonight-duo&hide_border=true&border_radius=1&date_format=j%20M%5B%20Y%5D&mode=weekly&card_width=500"/>
-    </a>
+  <a href="https://github.com/Ashfak-Hossain">
+    <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=24&pause=1000&center=true&vCenter=true&width=520&height=45&color=58A6FF&lines=Competitive+Programmer;Developer" alt="Typing SVG" />
+  </a>
 </p>
 
 <p align="center">
-<a href="https://github.com/Ashfak-Hossain/convoychat">
-  <img height=200 align="center"src="https://github-readme-stats.vercel.app/api?username=ashfak-hossain&show_icons=true&locale=en&theme=tokyonight&hide_border=true&bg_color=0E1117&include_all_commits=true" alt="ashfak-hossain"/>
-</a>
-
-<a href="https://github.com/Ashfak-Hossain/github-readme-stats">
-  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=ashfak-hossain&show_icons=true&locale=en&layout=donut&theme=tokyonight&hide_border=true&bg_color=0E1117" alt="ashfak-hossain" />
-</a>
+  <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=58A6FF&style=flat" alt="profile views" />
+  <a href="https://codeforces.com/profile/_Berlin_"><img src="https://codeforces-readme-stats.vercel.app/api/badge?username=_Berlin_" alt="Codeforces" height="20" /></a>
 </p>
+
+<!-- ════════════════════════════ ABOUT ═════════════════════════════ -->
+## About Me
+
+- Final-year CS student.
+- Competitive programmer at heart.
+- Currently deepening my knowledge of **distributed systems** and **scalable backend architecture**.
+- Reach me on [LinkedIn](https://linkedin.com/in/ashfak-evan).
+
+<!-- ════════════════════════════ STACK ════════════════════════════ -->
+## Tech Stack
+
+**Languages**
+
+![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+**Devs**
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+
+**Databases**
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=redis&logoColor=white)
+
+**Tools**
+
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
+
+<!-- ════════════════════════════ STATS ════════════════════════════ -->
+## GitHub Stats
+
+<p align="center">
+  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Ashfak-Hossain&show_icons=true&include_all_commits=true&hide_border=true&theme=tokyonight&bg_color=0E1117&rank_icon=github" />
+  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs?username=Ashfak-Hossain&layout=compact&langs_count=8&hide_border=true&theme=tokyonight&bg_color=0E1117" />
+</p>
+
+<p align="center">
+  <img src="https://streak-stats.demolab.com/?user=Ashfak-Hossain&theme=tokyonight&hide_border=true&date_format=j%20M%5B%20Y%5D&card_width=500" />
+</p>
+
+<!-- ═══════════════════ COMPETITIVE PROGRAMMING ════════════════════ -->
+## Competitive Programming
+
+<p align="center">
+  <a href="https://codeforces.com/profile/_Berlin_"><img src="https://img.shields.io/badge/Codeforces-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces" /></a>
+  <a href="https://leetcode.com/user8670vw"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode" /></a>
+  <a href="https://www.codechef.com/users/evan42"><img src="https://img.shields.io/badge/CodeChef-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef" /></a>
+  <a href="https://www.hackerrank.com/evan1234_ek"><img src="https://img.shields.io/badge/HackerRank-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black" alt="HackerRank" /></a>
+</p>
+
+<!-- ════════════════════════════ CONNECT ══════════════════════════ -->
+## Connect With Me
+
+<p align="center">
+  <a href="https://linkedin.com/in/ashfak-hossain-evan"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://twitter.com/ashfak_evan"><img src="https://img.shields.io/badge/Twitter%2FX-000000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>
+  <a href="https://stackoverflow.com/users/19765322"><img src="https://img.shields.io/badge/Stack_Overflow-F58025?style=for-the-badge&logo=stackoverflow&logoColor=white" alt="Stack Overflow" /></a>
+  <a href="https://dev.to/berlin"><img src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" alt="dev.to" /></a>
+</p>
+
+<p align="center"><i>"The problem-solving mindset and attention to detail from competitive programming are invaluable assets in any software project."</i></p>
