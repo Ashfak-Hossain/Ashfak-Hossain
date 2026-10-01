@@ -10,17 +10,19 @@ cd assets/src
 npm install
 npm run build                            # static cards → ../*.svg (commit them)
 node live.mjs --out /tmp/live --sample   # preview the live cards with made-up data
+node live.mjs --out <dir> --no-fetch     # re-render <dir>/data.json (e.g. from the output branch)
 ```
 
-**Static** (`build.mjs`): the banner, status pill, project cards (EchoAndAura, shortn, noOverlap)
-and toolbox. Edit the `CONTENT` block at the top to change the text; colours live in `theme.mjs`.
+**Static** (`build.mjs`): the banner (with its boot log), status pill, project cards (EchoAndAura,
+shortn, noOverlap), toolbox, the recruiter terminal and the chaos-monkey footer. Edit the `CONTENT` block at the top to change the text; colours live in `theme.mjs`.
 
 **Live** (`live.mjs`): the status board, GitHub activity and Codeforces cards.
 `.github/workflows/live.yml` runs it hourly. It checks each project's health endpoint (status code
 and response time only), fetches GitHub and Codeforces stats, and force-pushes the SVGs plus the
 check history (`data.json`) as a single commit to the `output` branch. The README loads them from
 `raw.githubusercontent.com/.../output/`. A source that fails keeps its previous data. Edit `CONFIG`
-at the top of `live.mjs` to change the handles, the sites, or which repos and languages count.
+at the top of `live.mjs` to change the handles, the sites, or which repos and languages count;
+a site marked `paused: true` is not checked and shows as "demo paused" instead of down.
 
 Optional: a personal access token saved as the `STATS_TOKEN` repository secret (scope `read:user`)
 lets the GitHub card count private contributions; without it the card shows public activity.

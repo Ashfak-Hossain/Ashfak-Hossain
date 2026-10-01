@@ -2,6 +2,7 @@
 // .github/workflows/live.yml runs this hourly and publishes the SVGs to the `output` branch.
 //   node live.mjs --out <dir>            check, fetch, merge into <dir>/data.json, render
 //   node live.mjs --out <dir> --sample   render made-up data for a local preview (never publish it)
+//   node live.mjs --out <dir> --no-fetch re-render <dir>/data.json without checking or fetching
 // Each source fails on its own: a fetch that fails keeps the previous data and logs a warning.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -13,10 +14,11 @@ const CONFIG = {
   github: 'Ashfak-Hossain',
   codeforces: '_Berlin_',
   // Public health endpoints; only the status code and the response time are recorded.
+  // `paused: true` marks a demo that is switched off on purpose: it isn't checked and shows as paused.
   sites: [
     { id: 'echoandaura', name: 'EchoAndAura', host: 'echoandaura.com', path: '/api/health' },
-    { id: 'shortn', name: 'shortn', host: 'shortn.ashfak.dev', path: '/healthz' },
-    { id: 'nooverlap', name: 'noOverlap', host: 'nooverlap.ashfak.dev', path: '/api/health' },
+    { id: 'shortn', name: 'shortn', host: 'shortn.ashfak.dev', path: '/healthz', paused: true },
+    { id: 'nooverlap', name: 'noOverlap', host: 'nooverlap.ashfak.dev', path: '/api/health', paused: true },
   ],
   excludeRepos: [],      // repo names left out of stars and languages
   hideLanguages: [],     // e.g. ['Jupyter Notebook']
@@ -28,6 +30,7 @@ const args = process.argv.slice(2);
 const outIdx = args.indexOf('--out');
 const outDir = path.resolve(outIdx >= 0 ? args[outIdx + 1] : '.');
 const SAMPLE = args.includes('--sample');
+const NO_FETCH = args.includes('--no-fetch');
 
 /* ─────────────────────────────── FETCH ───────────────────────────────── */
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -184,16 +187,21 @@ function statusBoard(t, data) {
   const Wd = 940, P = 24, rowH = 60, top = 74, cols = [P + 28, 300, 436, 556, 684];
   const H = top + CONFIG.sites.length * rowH + 42;
   const now = data.checkedAt ? Date.parse(data.checkedAt) : Date.now();
-  const rows = CONFIG.sites.map((s) => ({ s, ...siteSummary(data.status?.[s.id] ?? [], now) }));
-  const down = rows.filter((x) => x.state === 'down').length, none = rows.every((x) => x.state === 'none');
+  const rows = CONFIG.sites.map((s) => (s.paused
+    ? { s, state: 'paused', uptime: null, span: null, median: null, bars: [] }
+    : { s, ...siteSummary(data.status?.[s.id] ?? [], now) }));
+  const live = rows.filter((x) => x.state !== 'paused'), paused = rows.length - live.length;
+  const down = live.filter((x) => x.state === 'down').length, none = live.every((x) => x.state === 'none');
   const fmtUp = (u) => (u == null ? '—' : u === 100 ? '100%' : `${u.toFixed(2)}%`);
-  const desc = rows.map((x) => `${x.s.name}: ${x.state === 'up' ? 'operational' : x.state === 'down' ? 'down' : 'no data'}, uptime ${fmtUp(x.uptime)}, median ${x.median ?? '—'} ms`).join('; ');
+  const word = { up: 'operational', down: 'down', none: 'no data', paused: 'demo paused' };
+  const desc = rows.map((x) => `${x.s.name}: ${word[x.state]}, uptime ${fmtUp(x.uptime)}, median ${x.median ?? '—'} ms`).join('; ');
   let s = svgOpen(Wd, H, 'Live systems status', desc);
   s += `<style>${baseCss}${growCss}</style>` + frame(t, Wd, H);
   s += `<g class="up">${eyebrow(t, 'LIVE SYSTEMS', P, 38)}</g>`;
 
   // summary pill
-  const [sumText, sumCol] = none ? ['waiting for the first check', t.faint] : down ? [`${down} of ${rows.length} down`, t.red] : ['all systems operational', t.ok];
+  const [sumText, sumCol] = none ? ['waiting for the first check', t.faint] : down ? [`${down} of ${live.length} down`, t.red]
+    : paused ? [`${live.length} live · ${paused} demo${paused > 1 ? 's' : ''} paused`, t.ok] : ['all systems operational', t.ok];
   if (data.sample) s += sampleTag(t, Wd - P, 38);
   else {
     const sw = W(sumText, F.m, 13) + 40, sx = Wd - P - sw;
@@ -214,12 +222,12 @@ function statusBoard(t, data) {
     g += (row.state === 'up' ? `<circle class="ring" cx="${P + 8}" cy="${y + 25}" r="4.5" fill="${c}"/>` : '') + `<circle cx="${P + 8}" cy="${y + 25}" r="4.5" fill="${c}"/>`;
     g += T(row.s.name, { f: F.sb, size: 16, x: cols[0], y: y + 30, fill: t.fg });
     g += T(row.s.host, { f: F.mono, size: 12, x: cols[0], y: y + 48, fill: t.muted });
-    g += T(row.state === 'up' ? 'operational' : row.state === 'down' ? 'down' : 'no data', { f: F.m, size: 14, x: cols[1], y: y + 30, fill: c });
-    g += T(`GET ${row.s.path}`, { f: F.mono, size: 11, x: cols[1], y: y + 48, fill: t.faint });
+    g += T(word[row.state], { f: F.m, size: 14, x: cols[1], y: y + 30, fill: row.state === 'paused' ? t.muted : c });
+    g += T(row.state === 'paused' ? 'off on purpose' : `GET ${row.s.path}`, { f: F.mono, size: 11, x: cols[1], y: y + 48, fill: t.faint });
     g += T(fmtUp(row.uptime), { f: F.monoM, size: 16, x: cols[2], y: y + 30, fill: t.fg });
-    g += T(row.span ? `over ${row.span}` : 'no checks yet', { f: F.mono, size: 11, x: cols[2], y: y + 48, fill: t.faint });
+    g += T(row.span ? `over ${row.span}` : row.state === 'paused' ? 'not checked' : 'no checks yet', { f: F.mono, size: 11, x: cols[2], y: y + 48, fill: t.faint });
     g += T(row.median == null ? '—' : `${row.median} ms`, { f: F.monoM, size: 16, x: cols[3], y: y + 30, fill: t.fg });
-    g += T('p50 · last 24', { f: F.mono, size: 11, x: cols[3], y: y + 48, fill: t.faint });
+    if (row.state !== 'paused') g += T('p50 · last 24', { f: F.mono, size: 11, x: cols[3], y: y + 48, fill: t.faint });
     // bars: one per hourly check, oldest left; empty slots fill in as history grows
     const bx = cols[4], bw = Wd - P - bx, n = 48, pitch = bw / n, base = y + 48, maxH = 32;
     const pad = n - row.bars.length;
@@ -485,11 +493,13 @@ const dataPath = path.join(outDir, 'data.json');
 let data;
 if (SAMPLE) {
   data = sampleData();
+} else if (NO_FETCH) {
+  data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 } else {
   try { data = JSON.parse(fs.readFileSync(dataPath, 'utf8')); } catch { data = {}; }
   data.status ??= {};
   const now = new Date().toISOString();
-  for (const site of CONFIG.sites) {
+  for (const site of CONFIG.sites.filter((x) => !x.paused)) {
     const c = await checkSite(site);
     data.status[site.id] = [...(data.status[site.id] ?? []), { t: now, ...c }].slice(-HISTORY);
     console.log(`${site.host.padEnd(24)} up=${c.up} ms=${c.ms} codes=${c.codes}`);
