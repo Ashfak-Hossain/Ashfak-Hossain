@@ -3,6 +3,7 @@
 // Edit CONTENT below, rebuild, commit the SVGs.
 import fs from 'node:fs';
 import { F, W, T, runs, esc, arrow, neArrow, repoIcon, pinIcon, svgOpen, close, beginDoc, r } from './lib.mjs';
+import { THEMES, col, EASE, baseCss, delay, frames, blink } from './theme.mjs';
 
 /* ─────────────────────────────── CONTENT ─────────────────────────────── */
 const CONTENT = {
@@ -29,6 +30,15 @@ const CONTENT = {
       url: 'nooverlap.ashfak.dev',
     },
   },
+  // Client project: only the engineering (load tests, architecture) is shown, never usage or sales.
+  flagship: {
+    name: 'EchoAndAura',
+    badge: 'in production',
+    lang: ['TypeScript', '#3178C6'],
+    subtitle: 'Ticketing for a live-events company in Dhaka: payments, QR tickets, a door that works offline',
+    chips: ['Next.js 16 · React 19', 'Postgres 17 · Drizzle', 'Redis · BullMQ worker', 'offline-first scanner', 'Traefik load shedding', 'append-only audit log', 'Cloudflare · Dokploy'],
+    url: 'echoandaura.com',
+  },
   stack: [
     ['LANGUAGES', [['Go', '#00ADD8'], ['TypeScript', '#3178C6'], ['C++', '#659AD2'], ['SQL', '#E38C00'], ['Python', '#FFD43B'], ['C', '#A8B9CC']]],
     ['BACKEND', [['NestJS', '#E0234E'], ['Node.js', '#5FA04E'], ['chi', '#00ADD8'], ['Express', '#9198A1'], ['Prisma', '#5A67D8']]],
@@ -38,37 +48,6 @@ const CONTENT = {
     ['FRONTEND & GFX', [['React', '#61DAFB'], ['Next.js', 'FG'], ['TanStack Query', '#FF4154'], ['Tailwind', '#06B6D4'], ['OpenGL', '#5586A4']]],
   ],
 };
-
-/* ─────────────────────────────── THEMES ──────────────────────────────── */
-const THEMES = {
-  dark: {
-    bg0: '#0d1117', bg1: '#0a1a1b', border: '#21262d', fg: '#e6edf3', muted: '#9198a1', faint: '#6e7681',
-    accent: '#5eead4', packet: '#2dd4bf', panel: '#161b22', panelStroke: '#21262d',
-    node: '#161b22', nodeStroke: '#30363d', edge: '#3d444d', grid: '#30363d',
-    chipBg: '#2dd4bf14', chipStroke: '#2dd4bf47', chipText: '#99f6e4',
-    track: '#0d1117', red: '#f85149', ok: '#3fb950', glow: 0.12,
-  },
-  light: {
-    bg0: '#ffffff', bg1: '#effcf9', border: '#d0d7de', fg: '#1f2328', muted: '#59636e', faint: '#818b98',
-    accent: '#0f766e', packet: '#0d9488', panel: '#f6f8fa', panelStroke: '#d8dee4',
-    node: '#ffffff', nodeStroke: '#d0d7de', edge: '#afb8c1', grid: '#d0d7de',
-    chipBg: '#0d948812', chipStroke: '#0d94884d', chipText: '#115e59',
-    track: '#ffffff', red: '#cf222e', ok: '#1a7f37', glow: 0.10,
-  },
-};
-const col = (t, k) => (k === 'FG' ? t.fg : t[k] ?? k);
-
-const EASE = 'cubic-bezier(.2,.7,.2,1)';
-const baseCss = `
-@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-@keyframes ring{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
-.up{animation:up .8s ${EASE} both}.fade{animation:fade .9s ease both}
-.pulse{animation:pulse 2.4s ease-in-out infinite}
-.ring{transform-box:fill-box;transform-origin:center;animation:ring 2s ease-out infinite}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}`;
-const delay = (s) => `style="animation-delay:${s}s"`;
 
 /* ─────────────────────────────── BANNER ──────────────────────────────── */
 function banner(t) {
@@ -286,6 +265,172 @@ noOverlapPanel.css = (t) => {
   return css;
 };
 
+/* ─────────────────────────────── FLAGSHIP CARD ───────────────────────── */
+// Seeded PRNG so a rebuild produces the same seat order and QR pattern.
+function rng(seed) {
+  return () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let x = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const checkMark = (x, y, s, color, sw = 2) =>
+  `<path d="M${r(x)} ${r(y + s * 0.5)}l${r(s * 0.35)} ${r(s * 0.35)}l${r(s * 0.65)} ${r(-s * 0.75)}" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+function flagship(t) {
+  beginDoc();
+  const p = CONTENT.flagship;
+  const Wd = 940, P = 24, inner = Wd - P * 2, gap = 16;
+  const pw = (inner - gap) / 2, py = 94, ph = 200;
+  const chips = chipsLayout(p.chips, inner);
+  const chipsY = py + ph + 22;
+  const H = chipsY + chips.height + 58;
+  let css = '';
+  let s = svgOpen(Wd, H, `${p.name} — ${p.subtitle}`,
+    `Flagship project card. Left: 200 buyers race for 100 seats; every seat is held once, 0 oversold. ` +
+    `Right: a door phone loses signal, keeps admitting from its offline list, then syncs the queued scans. ${p.chips.join(', ')}.`);
+
+  // card + header
+  s += `<rect x=".5" y=".5" width="${Wd - 1}" height="${H - 1}" rx="14" fill="${t.bg0}" stroke="${t.border}"/>`;
+  const nw = W(p.name, F.b, 22, -0.01);
+  const bx = P + 26 + nw + 12, bw = 26 + W(p.badge, F.m, 12) + 10;
+  s += `<g class="up" ${delay(0.05)}>` + repoIcon(P, 29, t.muted) +
+    T(p.name, { f: F.b, size: 22, x: P + 26, y: 45, ls: -0.01, fill: t.fg }) +
+    `<rect x="${r(bx)}" y="27.5" width="${r(bw)}" height="23" rx="11.5" fill="${t.panel}" stroke="${t.border}"/>` +
+    `<circle class="ring" cx="${r(bx + 13)}" cy="39" r="3.5" fill="${t.ok}"/><circle cx="${r(bx + 13)}" cy="39" r="3.5" fill="${t.ok}"/>` +
+    T(p.badge, { f: F.m, size: 12, x: bx + 24, y: 43.5, fill: t.muted });
+  const [lang, lc] = p.lang;
+  const lw = W(lang, F.mono, 12.5);
+  s += `<circle cx="${r(Wd - P - lw - 12)}" cy="40.5" r="5" fill="${lc}"/>` + T(lang, { f: F.mono, size: 12.5, x: Wd - P, y: 45, anchor: 'end', fill: t.muted }) + `</g>`;
+  s += `<g class="up" ${delay(0.12)}>` + T(p.subtitle, { f: F.r, size: 14.5, x: P, y: 74, fill: t.muted }) + `</g>`;
+
+  /* ── left panel: the on-sale rush ── */
+  const lx = P, x0 = lx + 16;
+  let L = `<rect x="${lx}" y="${py}" width="${r(pw)}" height="${ph}" rx="10" fill="${t.panel}" stroke="${t.panelStroke}"/>`;
+  L += T('ON-SALE RUSH · 200 BUYERS, 100 SEATS', { f: F.monoM, size: 11.5, x: x0, y: py + 25, ls: 0.12, fill: t.accent });
+  // "SOLD OUT" stamp, shown while every seat is held
+  const so = 'SOLD OUT', sow = W(so, F.monoM, 10.5, 0.1) + 14, sox = lx + pw - 16 - sow;
+  L += `<g class="so"><rect x="${r(sox)}" y="${py + 12}" width="${r(sow)}" height="19" rx="5" fill="none" stroke="${t.red}" stroke-width="1.2"/>` +
+    T(so, { f: F.monoM, size: 10.5, x: sox + 7, y: py + 25.5, ls: 0.1, fill: t.red }) + `</g>`;
+  // 100 seats, filled in a random order
+  const cols = 20, rows = 5, cg = 5, gw = pw - 32, cw = (gw - (cols - 1) * cg) / cols, ch = 14, gy = py + 40;
+  const rand = rng(7);
+  const order = [...Array(cols * rows).keys()];
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  const rank = new Map(order.map((cell, i) => [cell, i]));
+  let seats = '', fills = '';
+  for (let i = 0; i < cols * rows; i++) {
+    const cx = r(x0 + (i % cols) * (cw + cg)), cy = gy + Math.floor(i / cols) * (ch + cg);
+    seats += `<rect x="${cx}" y="${cy}" width="${r(cw)}" height="${ch}" rx="3" fill="${t.track}" stroke="${t.panelStroke}"/>`;
+    const d = (1.0 + 2.0 * rank.get(i) / 99 + rand() * 0.08).toFixed(2);
+    fills += `<rect class="st" style="animation-delay:${d}s" x="${cx}" y="${cy}" width="${r(cw)}" height="${ch}" rx="3" fill="${t.packet}"/>`;
+  }
+  L += seats + fills;
+  L += runs([
+    { s: '100', f: F.monoM, fill: t.fg }, { s: ' held · ', fill: t.muted },
+    { s: '100', f: F.monoM, fill: t.fg }, { s: ' sold out · ', fill: t.muted },
+    { s: '0', f: F.monoM, fill: t.fg }, { s: ' errors · ', fill: t.muted },
+    { s: '0', f: F.monoB, fill: t.accent }, { s: ' oversold', fill: t.accent, f: F.monoM },
+  ], { f: F.mono, size: 12.5, x: x0, y: py + ph - 46 }).svg;
+  L += T('UPDATE … WHERE total - sold - reserved >= qty', { f: F.mono, size: 11.2, x: x0, y: py + ph - 20, fill: t.muted });
+  // seat: fills at its own moment, stays while the house is full, clears; 8 s loop
+  css += `@keyframes st{0%{opacity:0}2%{opacity:1}72%{opacity:1}78%,100%{opacity:0}}.st{opacity:0;animation:st 8s linear infinite}`;
+  css += blink('so', 8, [[3.25, 6.6]]);
+  s += `<g class="up" ${delay(0.2)}>${L}</g>`;
+
+  /* ── right panel: the door scanner ── */
+  const rx0 = P + pw + gap, sx0 = rx0 + 16;
+  let R = `<rect x="${r(rx0)}" y="${py}" width="${r(pw)}" height="${ph}" rx="10" fill="${t.panel}" stroke="${t.panelStroke}"/>`;
+  R += T('DOOR SCANNER · NO SIGNAL', { f: F.monoM, size: 11.5, x: sx0, y: py + 25, ls: 0.12, fill: t.accent });
+  const rEnd = rx0 + pw - 16;
+  const onW = W('online', F.mono, 12), offW = W('offline', F.mono, 12);
+  R += `<g class="on"><circle cx="${r(rEnd - onW - 10)}" cy="${py + 21}" r="3.5" fill="${t.ok}"/>` + T('online', { f: F.mono, size: 12, x: rEnd, y: py + 25, anchor: 'end', fill: t.ok }) + `</g>`;
+  R += `<g class="off"><circle cx="${r(rEnd - offW - 10)}" cy="${py + 21}" r="3.5" fill="${t.warn}"/>` + T('offline', { f: F.mono, size: 12, x: rEnd, y: py + 25, anchor: 'end', fill: t.warn }) + `</g>`;
+
+  // phone
+  const fx = sx0, fy = py + 40, fw = 78, fh = 146;
+  R += `<rect x="${r(fx)}" y="${fy}" width="${fw}" height="${fh}" rx="13" fill="${t.track}" stroke="${t.nodeStroke}" stroke-width="1.5"/>`;
+  R += `<rect x="${r(fx + fw / 2 - 11)}" y="${fy + 6}" width="22" height="4" rx="2" fill="${t.nodeStroke}"/>`;
+  // signal bars: four up (online) or faint with a cross (offline)
+  const bars = (color, op) => [3, 5, 7, 9].map((h, i) => `<rect x="${r(fx + 10 + i * 4)}" y="${fy + 24 - h}" width="2.6" height="${h}" rx=".8" fill="${color}" opacity="${op}"/>`).join('');
+  R += `<g class="on">${bars(t.fg, 1)}</g>`;
+  R += `<g class="off">${bars(t.faint, 0.45)}<path d="M${r(fx + 29)} ${fy + 16}l5 5m0 -5l-5 5" stroke="${t.warn}" stroke-width="1.6" stroke-linecap="round"/></g>`;
+  // queue badge counts scans waiting to sync
+  const qx = fx + fw - 15, qy = fy + 20;
+  for (const n of ['1', '2']) {
+    R += `<g class="q${n}"><circle cx="${r(qx)}" cy="${qy}" r="7.5" fill="${t.warn}"/>` + T(n, { f: F.monoB, size: 10, x: qx, y: qy + 3.6, anchor: 'middle', fill: t.bg0 }) + `</g>`;
+  }
+  // a small QR code: three finder patterns + seeded modules
+  const mods = 13, m = 4.2, qrw = mods * m, qrx = fx + (fw - qrw) / 2, qry = fy + 36;
+  const finder = (i, j) => [[0, 0], [mods - 5, 0], [0, mods - 5]].some(([a, b]) => i >= a - 1 && i <= a + 5 && j >= b - 1 && j <= b + 5);
+  let qd = '';
+  for (const [a, b] of [[0, 0], [mods - 5, 0], [0, mods - 5]]) {
+    const X = qrx + a * m, Y = qry + b * m;
+    qd += `M${r(X)} ${r(Y)}h${r(5 * m)}v${r(5 * m)}h${r(-5 * m)}zM${r(X + m)} ${r(Y + m)}v${r(3 * m)}h${r(3 * m)}v${r(-3 * m)}zM${r(X + 2 * m)} ${r(Y + 2 * m)}h${r(m)}v${r(m)}h${r(-m)}z`;
+  }
+  const qr = rng(42);
+  for (let i = 0; i < mods; i++) for (let j = 0; j < mods; j++) {
+    if (finder(i, j) || qr() < 0.52) continue;
+    qd += `M${r(qrx + i * m)} ${r(qry + j * m)}h${m}v${m}h-${m}z`;
+  }
+  R += `<path d="${qd}" fill="${t.fg}" fill-rule="evenodd"/>`;
+  // the scan line sweeping the code
+  R += `<g class="sw"><rect x="${r(qrx - 4)}" y="${r(qry - 1)}" width="${r(qrw + 8)}" height="2" rx="1" fill="${t.packet}"/></g>`;
+  // the verdict
+  const vx = fx + 7, vy = fy + fh - 32, vw = fw - 14;
+  R += `<g class="vd"><rect x="${r(vx)}" y="${vy}" width="${vw}" height="22" rx="6" fill="${t.ok}"/>` +
+    checkMark(vx + 9, vy + 5, 11, t.bg0, 2.2) + T('ADMIT', { f: F.b, size: 10.5, x: vx + 25, y: vy + 15, ls: 0.04, fill: t.bg0 }) + `</g>`;
+
+  // the log beside the phone
+  const lgx = fx + fw + 18, lg0 = py + 54, lp = 20, ls = 11;
+  const lines = [
+    [1.3, [['21:04:02', 'faint'], ['  scan  ', 'muted'], ['admit', 'ok', F.monoM], ['  online', 'muted']]],
+    [2.8, [['21:04:09', 'faint'], ['  — signal lost —', 'warn']]],
+    [4.1, [['21:04:11', 'faint'], ['  scan  ', 'muted'], ['admit', 'ok', F.monoM], ['  offline · queued', 'warn']]],
+    [6.1, [['21:04:14', 'faint'], ['  scan  ', 'muted'], ['admit', 'ok', F.monoM], ['  offline · queued', 'warn']]],
+    [7.5, [['21:04:20', 'faint'], ['  — signal back —', 'ok']]],
+    [8.0, [['21:04:20', 'faint'], ['  sync  ', 'muted'], ['2 scans', 'fg', F.monoM], [' replayed as check-ins', 'muted']]],
+  ];
+  const C = 10;
+  lines.forEach(([at, parts], i) => {
+    R += `<g class="lg${i}">` + runs(parts.map(([str, c, f]) => ({ s: str, fill: t[c], f })), { f: F.mono, size: ls, x: lgx, y: lg0 + i * lp }).svg + `</g>`;
+    css += blink(`lg${i}`, C, [[at, 9.3]], 0.2);
+  });
+  R += T('judged on the phone from a hashed list', { f: F.mono, size: 11.2, x: lgx, y: py + ph - 20, fill: t.muted });
+
+  // the scanner's 10 s story: online scan, signal lost, two offline scans queue, signal back, sync
+  css += blink('on', C, [[0, 2.8], [7.5, C]], 0.12) + blink('off', C, [[2.8, 7.5]], 0.12);
+  css += blink('vd', C, [[1.3, 2.3], [4.1, 5.1], [6.1, 7.1]], 0.1);
+  css += blink('q1', C, [[4.1, 6.1]], 0.1) + blink('q2', C, [[6.1, 8.0]], 0.1);
+  const sweep = [];
+  for (const [a, b] of [[0.6, 1.3], [3.4, 4.1], [5.4, 6.1]]) {
+    sweep.push([a, 'opacity:0;transform:translateY(0)'], [a + 0.05, 'opacity:1;transform:translateY(0)'],
+      [b - 0.05, `opacity:1;transform:translateY(${r(qrw)}px)`], [b, `opacity:0;transform:translateY(${r(qrw)}px)`]);
+  }
+  css += frames('sw', C, [[0, 'opacity:0;transform:translateY(0)'], ...sweep, [C, 'opacity:0;transform:translateY(0)']]);
+  s += `<g class="up" ${delay(0.28)}>${R}</g>`;
+
+  // a still frame for reduced motion: every seat held, the log complete
+  css += `@media (prefers-reduced-motion:reduce){.st,.so,.on,.vd,${lines.map((_, i) => `.lg${i}`).join(',')}{opacity:1!important}.off,.q1,.q2,.sw{opacity:0!important}}`;
+
+  // chips + footer
+  chips.out.forEach(({ c, x, y, w }, i) => {
+    s += `<g class="up" ${delay(0.45 + i * 0.05)}><rect x="${r(P + x)}" y="${chipsY + y}" width="${r(w)}" height="26" rx="13" fill="${t.chipBg}" stroke="${t.chipStroke}"/>` +
+      T(c, { f: F.m, size: 12.5, x: P + x + 11, y: chipsY + y + 17.5, fill: t.chipText }) + `</g>`;
+  });
+  const fyy = H - 24;
+  s += `<line x1="${P}" y1="${fyy - 22}" x2="${Wd - P}" y2="${fyy - 22}" stroke="${t.border}"/>`;
+  s += `<g class="fade" ${delay(0.7)}>` + T(p.url, { f: F.mono, size: 13, x: P, y: fyy, fill: t.muted }) +
+    neArrow(P + W(p.url, F.mono, 13) + 7, fyy - 9, 8, t.muted) +
+    T('view repo', { f: F.mono, size: 13, x: Wd - P - 16, y: fyy, anchor: 'end', fill: t.faint }) +
+    `<path d="M${Wd - P - 9} ${fyy - 8}l5 4.5l-5 4.5" fill="none" stroke="${t.faint}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+
+  s = s.replace('<!--DEFS-->', `<!--DEFS--><style>${baseCss}${css}</style>`);
+  return close(s);
+}
+
 /* ─────────────────────────────── TOOLBOX ─────────────────────────────── */
 function stack(t) {
   beginDoc();
@@ -324,6 +469,7 @@ for (const [name, t] of Object.entries(THEMES)) {
   files[`status-${name}.svg`] = status(t);
   files[`card-shortn-${name}.svg`] = card(t, 'shortn', shortnPanel);
   files[`card-nooverlap-${name}.svg`] = card(t, 'noOverlap', noOverlapPanel);
+  files[`card-echoandaura-${name}.svg`] = flagship(t);
   files[`stack-${name}.svg`] = stack(t);
 }
 for (const [f, svg] of Object.entries(files)) {

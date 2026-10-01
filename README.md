@@ -1,94 +1,174 @@
-<!-- ════════════════════════════ BANNER ════════════════════════════ -->
-![header](https://github.com/Ashfak-Hossain/Ashfak-Hossain/assets/73357589/8cbdee9e-62c8-413b-bf6d-364fb563b9a4)
+<!--
+  Every image on this page is generated.
+  Static (banner, project cards, toolbox): assets/src/build.mjs → assets/*.svg
+  Live (status board, GitHub, Codeforces): .github/workflows/live.yml, hourly → the `output` branch
+-->
 
-<!-- ════════════════════════════ INTRO ═════════════════════════════ -->
-<h1 align="center">Hi, I'm Ashfak Hossain Evan </h1>
+<a href="https://ashfak.dev">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+    <img alt="Ashfak Hossain Evan. Backend and distributed systems: backends that stay correct under concurrency and fast under load. Dhaka, Bangladesh." src="assets/banner-light.svg" width="100%">
+  </picture>
+</a>
 
 <p align="center">
-  <a href="https://github.com/Ashfak-Hossain">
-    <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=24&pause=1000&center=true&vCenter=true&width=520&height=45&color=58A6FF&lines=Competitive+Programmer;Developer" alt="Typing SVG" />
-  </a>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/status-dark.svg">
+    <img alt="Available now: backend internships and new-grad roles, remote or Dhaka." src="assets/status-light.svg">
+  </picture>
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=ashfak-hossain&label=Profile%20views&color=58A6FF&style=flat" alt="profile views" />
-  <a href="https://codeforces.com/profile/_Berlin_"><img src="https://codeforces-readme-stats.vercel.app/api/badge?username=_Berlin_" alt="Codeforces" height="20" /></a>
+  Final-year CS student and competitive programmer who builds backends that keep their promises under load.<br>
+  Each project below proves one guarantee with a test or a load test, not an adjective.
 </p>
 
-<!-- ════════════════════════════ ABOUT ═════════════════════════════ -->
-## About Me
+## Featured work
 
-- Final-year CS student.
-- Competitive programmer at heart.
-- Currently deepening my knowledge of **distributed systems** and **scalable backend architecture**.
-- Reach me on [LinkedIn](https://linkedin.com/in/ashfak-evan).
-
-<!-- ════════════════════════════ STACK ════════════════════════════ -->
-## Tech Stack
-
-**Languages**
-
-![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)
-![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-
-**Devs**
-
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
-
-**Databases**
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=redis&logoColor=white)
-
-**Tools**
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![CMake](https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
-
-<!-- ════════════════════════════ STATS ════════════════════════════ -->
-## GitHub Stats
+<a href="https://github.com/Ashfak-Hossain/EchoAndAura">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/card-echoandaura-dark.svg">
+    <img alt="EchoAndAura: ticketing for a live-events company in Dhaka. In a load test 200 buyers raced for 100 seats: 100 held, 100 sold out, 0 errors, 0 oversold. The door scanner keeps admitting from a hashed offline list when the signal drops, then syncs the queued scans." src="assets/card-echoandaura-light.svg" width="100%">
+  </picture>
+</a>
 
 <p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Ashfak-Hossain&show_icons=true&include_all_commits=true&hide_border=true&theme=tokyonight&bg_color=0E1117&rank_icon=github" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs?username=Ashfak-Hossain&layout=compact&langs_count=8&hide_border=true&theme=tokyonight&bg_color=0E1117" />
+  <a href="https://github.com/Ashfak-Hossain/shortn"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-shortn-dark.svg"><img alt="shortn: a distributed URL shortener in Go. Redirect p99 went from 172 ms to 11 ms under the same load after adding nginx upstream keepalive." src="assets/card-shortn-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/Ashfak-Hossain/noOverlap"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-nooverlap-dark.svg"><img alt="noOverlap: double-booking made impossible by a PostgreSQL exclusion constraint. 100 concurrent holds on one slot: one 201, ninety-nine 409s." src="assets/card-nooverlap-light.svg" width="49%"></picture></a>
 </p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/live-status-dark.svg">
+  <img alt="Live status of echoandaura.com, shortn.ashfak.dev and nooverlap.ashfak.dev: state, uptime and median response time from hourly health checks." src="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/live-status-light.svg" width="100%">
+</picture>
+
+## Engineering notes
+
+Problems I found, measured and fixed. Click one to open it.
+
+<details>
+<summary><b>p99 from 172 ms to 11 ms with three lines of nginx</b> · shortn</summary>
+<br>
+
+Under steady load the median stayed at 1.6 ms but the tail kept growing. The API's own p99,
+measured server-side, was about 5 ms, so the missing ~167 ms was spent outside the Go process.
+nginx had no upstream `keepalive`: it opened a fresh TCP connection to an API container for every
+request, and `TIME_WAIT` sockets piled up over the run.
+
+```nginx
+upstream shortn_api { keepalive 64; }      # keep idle connections to the API open
+location / {
+    proxy_http_version 1.1;                # keepalive needs HTTP/1.1
+    proxy_set_header Connection "";        # nginx sends "Connection: close" upstream by default
+}
+```
+
+Same 200 req/s, only nginx changed: **p99 172 ms → 11 ms**, median unchanged. A tail that moves
+while the median doesn't is a queueing problem, not a compute one.
+[Performance report →](https://github.com/Ashfak-Hossain/shortn/blob/master/docs/performance.md)
+
+</details>
+
+<details>
+<summary><b>Making a double-booking impossible to write</b> · noOverlap</summary>
+<br>
+
+Check-then-insert has a race that no application code can close: two transactions both see the
+slot free in the gap between the two statements. So the service stops checking, and the schema
+makes an overlap unrepresentable:
+
+```sql
+EXCLUDE USING gist (listing_id WITH =, tstzrange(check_in, check_out, '[)') WITH &&)
+  WHERE (status IN ('HELD', 'CONFIRMED'))
+```
+
+The service inserts and turns the rejection into a `409`. A hundred simultaneous holds on one slot
+give **one 201 and ninety-nine 409s**; repeated a hundred times, 10,000 attempts leave **zero
+overlapping rows** in the whole table. The half-open `[)` range lets a checkout and the next
+check-in share a day.
+[How it works →](https://github.com/Ashfak-Hossain/noOverlap/blob/master/docs/concepts/no-overlap.md)
+
+</details>
+
+<details>
+<summary><b>A server that says "busy" instead of falling over</b> · EchoAndAura</summary>
+<br>
+
+Load-tested on two CPU cores pinned to the production server's size. Past about 80 page views a
+second, requests queued inside Node until the heap filled, and at 220 a second the web process
+crashed (`JavaScript heap out of memory`). The fix is load shedding at the edge: Traefik's
+`inFlightReq` caps the requests in flight and answers `429` at once instead of queueing them. With
+any cap the process never crashed, and its memory stayed near 250 MB.
+
+Choosing the cap was the interesting part. A cap of 40 served page views best, but in an on-sale
+rush it turned away 160 of 200 buyers while 60 seats stayed empty. A cap of 100 still can't crash
+and lets the whole rush through: **200 buyers, 100 seats, exactly 100 holds, 0 oversold.**
+[Load test →](https://github.com/Ashfak-Hossain/EchoAndAura/blob/main/docs/LOAD-TEST.md)
+
+</details>
+
+<details>
+<summary><b>Admitting people at the door with no signal</b> · EchoAndAura</summary>
+<br>
+
+Venue signal fails exactly when a queue forms. The door phone keeps a copy of the event's ticket
+list, refreshed every minute, with every ticket code stored only as a salted SHA-256 hash. When a
+scan gets no answer, the phone judges it from that list (admit, already in, cancelled, not on this
+list), marks the answer "offline" and queues the scan in an outbox. When the signal returns, the
+outbox syncs oldest first, 50 scans per request, and the server replays each admit as a real
+check-in. Two gates without signal can both admit one screenshot, so a double entry is recorded
+and flagged for staff rather than trusted.
+[ADR-034 →](https://github.com/Ashfak-Hossain/EchoAndAura/blob/main/docs/DECISIONS.md#adr-034--gate-scanner-offline-slice-b-a-hashed-list-an-outbox-double-entries-shown-not-prevented)
+
+</details>
+
+<details>
+<summary><b>Exactly-once click analytics that never slow a redirect</b> · shortn</summary>
+<br>
+
+A redirect publishes a `LinkClicked` event to Redpanda and returns; it never waits for analytics.
+A separate consumer writes each click to Postgres and commits the queue offset in the same
+transaction as the insert, so a crash or restart can neither lose a click nor count one twice.
+[Architecture →](https://github.com/Ashfak-Hossain/shortn/blob/master/ARCHITECTURE.md)
+
+</details>
+
+## Toolbox
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <img alt="Languages: Go, TypeScript, C++, SQL, Python, C. Backend: NestJS, Node.js, chi, Express, Prisma. Data and queues: PostgreSQL, Redis, Kafka/Redpanda, BullMQ, MongoDB. Infra: Docker, Kubernetes, Helm, Argo CD, Terraform, nginx, GitHub Actions. Observability: OpenTelemetry, Prometheus, Grafana, Loki, Tempo, k6. Frontend and graphics: React, Next.js, TanStack Query, Tailwind, OpenGL." src="assets/stack-light.svg" width="100%">
+</picture>
+
+## Activity
+
+<a href="https://github.com/Ashfak-Hossain?tab=repositories">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/github-stats-dark.svg">
+    <img alt="GitHub activity over the last 12 months: contributions, streaks, commits, merged pull requests, stars, a contribution calendar and top languages." src="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/github-stats-light.svg" width="100%">
+  </picture>
+</a>
+
+<a href="https://codeforces.com/profile/_Berlin_">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/cp-stats-dark.svg">
+    <img alt="Codeforces: current rank and rating, rating history, rated contests, problems solved, and solved problems by rating." src="https://raw.githubusercontent.com/Ashfak-Hossain/Ashfak-Hossain/output/cp-stats-light.svg" width="100%">
+  </picture>
+</a>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com/?user=Ashfak-Hossain&theme=tokyonight&hide_border=true&date_format=j%20M%5B%20Y%5D&card_width=500" />
+  Also on
+  <a href="https://leetcode.com/user8670vw">LeetCode</a> ·
+  <a href="https://www.codechef.com/users/evan42">CodeChef</a> ·
+  <a href="https://www.hackerrank.com/evan1234_ek">HackerRank</a>
 </p>
 
-<!-- ═══════════════════ COMPETITIVE PROGRAMMING ════════════════════ -->
-## Competitive Programming
+## Elsewhere
 
 <p align="center">
-  <a href="https://codeforces.com/profile/_Berlin_"><img src="https://img.shields.io/badge/Codeforces-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces" /></a>
-  <a href="https://leetcode.com/user8670vw"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode" /></a>
-  <a href="https://www.codechef.com/users/evan42"><img src="https://img.shields.io/badge/CodeChef-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef" /></a>
-  <a href="https://www.hackerrank.com/evan1234_ek"><img src="https://img.shields.io/badge/HackerRank-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black" alt="HackerRank" /></a>
+  <a href="https://ashfak.dev"><b>ashfak.dev</b></a> ·
+  <a href="https://linkedin.com/in/ashfak-hossain-evan">LinkedIn</a> ·
+  <a href="https://twitter.com/ashfak_evan">X</a> ·
+  <a href="https://stackoverflow.com/users/19765322">Stack Overflow</a> ·
+  <a href="https://dev.to/berlin">dev.to</a>
 </p>
-
-<!-- ════════════════════════════ CONNECT ══════════════════════════ -->
-## Connect With Me
-
-<p align="center">
-  <a href="https://linkedin.com/in/ashfak-hossain-evan"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-  <a href="https://twitter.com/ashfak_evan"><img src="https://img.shields.io/badge/Twitter%2FX-000000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>
-  <a href="https://stackoverflow.com/users/19765322"><img src="https://img.shields.io/badge/Stack_Overflow-F58025?style=for-the-badge&logo=stackoverflow&logoColor=white" alt="Stack Overflow" /></a>
-  <a href="https://dev.to/berlin"><img src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" alt="dev.to" /></a>
-</p>
-
-<p align="center"><i>"The problem-solving mindset and attention to detail from competitive programming are invaluable assets in any software project."</i></p>
