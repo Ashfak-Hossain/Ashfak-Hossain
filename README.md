@@ -163,7 +163,14 @@ transaction as the insert, so a crash or restart can neither lose a click nor co
   <a href="https://www.hackerrank.com/evan1234_ek">HackerRank</a>
 </p>
 
-## Elsewhere
+## Hiring?
+
+<a href="https://linkedin.com/in/ashfak-hossain-evan">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-dark.svg">
+    <img alt="A terminal session. A recruiter runs sudo hire ashfak: access granted, offer letter queued with exactly-once delivery and idempotency key you. Then two recruiters book the same interview slot at the same millisecond: one gets 201 Created, the other 409 Conflict, ashfak is already booked, next free slot Mon 11:00." src="assets/terminal-light.svg" width="100%">
+  </picture>
+</a>
 
 <p align="center">
   <a href="https://ashfak.dev"><b>ashfak.dev</b></a> ·
@@ -172,3 +179,32 @@ transaction as the insert, so a crash or restart can neither lose a click nor co
   <a href="https://stackoverflow.com/users/19765322">Stack Overflow</a> ·
   <a href="https://dev.to/berlin">dev.to</a>
 </p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/chaos-dark.svg">
+  <img alt="Chaos drill: a cartoon monkey unplugs api-2, the load balancer opens the circuit and retries on api-3, Kubernetes restarts api-2 and traffic comes back. Requests lost: 0." src="assets/chaos-light.svg" width="100%">
+</picture>
+
+<details>
+<summary><sub>⚠️ do not open in production</sub></summary>
+<br>
+
+```text
+INCIDENT 0001 · the 3 a.m. off-by-one                      severity: personal
+
+impact       1 × Wrong Answer on test 47
+             1 × developer awake until sunrise
+detection    Codeforces, instantly, in red
+root cause   for (int i = 0; i <= n; i++)
+fix          <=  →  <      (one character, six hours)
+lessons      the constraints were in the statement the whole time
+
+action items
+  [x] write the test first
+  [x] read the constraints twice
+  [ ] sleep                                  blocked by: one more contest
+```
+
+<sub>Blameless postmortem. The developer has been forgiven. The array has not.</sub>
+
+</details>

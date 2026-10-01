@@ -15,6 +15,15 @@ const CONTENT = {
   ],
   meta: ['Dhaka, Bangladesh', 'ashfak.dev'],
   hud: [['p99 ', 'faint'], ['11 ms', 'accent'], ['  ·  overlaps ', 'faint'], ['0', 'accent'], ['  ·  events ', 'faint'], ['exactly-once', 'accent']],
+  // the banner's boot log, before the name appears
+  boot: [
+    ['  OK  ', 'Started postgresql.service'],
+    ['  OK  ', 'Started redis.service'],
+    ['  OK  ', 'Mounted /dev/coffee'],
+    [' WARN ', 'sleep.service masked by deadline.target'],
+    ['  OK  ', 'Started curiosity.service'],
+    ['  OK  ', 'Reached target ashfak.target'],
+  ],
   status: 'Available now · backend internships & new-grad roles · remote or Dhaka',
   projects: {
     shortn: {
@@ -52,6 +61,9 @@ const CONTENT = {
 /* ─────────────────────────────── BANNER ──────────────────────────────── */
 function banner(t) {
   beginDoc();
+  // a short boot log plays first; everything else starts once it fades
+  const BOOT = 1.55;
+  const bd = (sec) => delay(sec + BOOT);
   const Wd = 1200, H = 400, X = 72;
   let s = svgOpen(Wd, H, `${CONTENT.name} — backend and distributed systems engineer`,
     'Animated banner: name, tagline, and a small service graph with requests flowing between proxy, API, Redis, Postgres, a queue and a worker.');
@@ -64,21 +76,24 @@ function banner(t) {
 <clipPath id="clip"><rect x="1" y="1" width="${Wd - 2}" height="${H - 2}" rx="17"/></clipPath>
 <filter id="gl" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="${t.edge}"/></marker>
-</defs><style>${baseCss}</style>`;
+</defs><style>${baseCss}
+@keyframes bl{from{opacity:0}to{opacity:1}}.bl{animation:bl .08s linear both}
+@keyframes bo{to{opacity:0;transform:translateY(-6px)}}.boot{animation:bo .3s ease ${BOOT - 0.3}s forwards}
+@media (prefers-reduced-motion:reduce){.boot{opacity:0}}</style>`;
   s += `<rect x=".5" y=".5" width="${Wd - 1}" height="${H - 1}" rx="18" fill="url(#bg)" stroke="${t.border}"/>`;
   s += `<g clip-path="url(#clip)"><rect width="${Wd}" height="${H}" fill="url(#dots)" mask="url(#m)"/><rect width="${Wd}" height="${H}" fill="url(#glow)"/></g>`;
 
   // left column
-  s += `<g class="up" ${delay(0.05)}><rect x="${X}" y="95" width="22" height="2.5" rx="1.25" fill="${t.accent}"/>` +
+  s += `<g class="up" ${bd(0.05)}><rect x="${X}" y="95" width="22" height="2.5" rx="1.25" fill="${t.accent}"/>` +
     T(CONTENT.eyebrow, { f: F.monoM, size: 14, x: X + 34, y: 101, ls: 0.16, fill: t.accent }) + `</g>`;
 
   let nameSize = 60;
   while (W(CONTENT.name, F.xb, nameSize, -0.025) > 640) nameSize -= 1;
-  s += `<g class="up" ${delay(0.15)}>` + T(CONTENT.name, { f: F.xb, size: nameSize, x: X - 3, y: 172, ls: -0.025, fill: t.fg }) + `</g>`;
+  s += `<g class="up" ${bd(0.15)}>` + T(CONTENT.name, { f: F.xb, size: nameSize, x: X - 3, y: 172, ls: -0.025, fill: t.fg }) + `</g>`;
 
   CONTENT.tagline.forEach((line, i) => {
     const parts = line.map(([str, c]) => ({ s: str, fill: t[c], f: c === 'fg' ? F.sb : F.r }));
-    s += `<g class="up" ${delay(0.28 + i * 0.07)}>` + runs(parts, { f: F.r, size: 24, x: X, y: 228 + i * 34 }).svg + `</g>`;
+    s += `<g class="up" ${bd(0.28 + i * 0.07)}>` + runs(parts, { f: F.r, size: 24, x: X, y: 228 + i * 34 }).svg + `</g>`;
   });
 
   // meta row
@@ -90,7 +105,7 @@ function banner(t) {
     meta += T(m, { f: F.mono, size: 15, x: mx, y: 331, fill: t.muted });
     mx += W(m, F.mono, 15);
   });
-  s += `<g class="up" ${delay(0.45)}>${meta}</g>`;
+  s += `<g class="up" ${bd(0.45)}>${meta}</g>`;
 
   // service graph
   const nw = 104, nh = 40;
@@ -108,7 +123,7 @@ function banner(t) {
   ];
   let g = '';
   edges.forEach(([id, d], i) => {
-    g += `<path id="${id}" class="fade" ${delay(0.9 + i * 0.08)} d="${d}" fill="none" stroke="${t.edge}" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>`;
+    g += `<path id="${id}" class="fade" ${bd(0.9 + i * 0.08)} d="${d}" fill="none" stroke="${t.edge}" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>`;
   });
   nodes.forEach(([label, c, rw, replicas], i) => {
     const x = C[c], y = R[rw];
@@ -120,14 +135,14 @@ function banner(t) {
     n += `<rect x="${x}" y="${y}" width="${nw}" height="${nh}" rx="9" fill="${t.node}" stroke="${t.nodeStroke}"/>`;
     n += `<circle class="pulse" style="animation-delay:${(i * 0.37).toFixed(2)}s" cx="${x + 17}" cy="${y + 20}" r="3.5" fill="${t.ok}"/>`;
     n += T(label, { f: F.monoM, size: 14, x: x + 29, y: y + 25, fill: t.fg });
-    g += `<g class="up" ${delay(0.55 + i * 0.07)}>${n}</g>`;
+    g += `<g class="up" ${bd(0.55 + i * 0.07)}>${n}</g>`;
   });
   // packets
   const flows = [['e1', 0.0, 1.1], ['e2', 1.1, 0.9], ['e3', 1.4, 1.5], ['e4', 1.9, 1.6], ['e5', 3.3, 0.9], ['e6', 4.0, 1.0]];
   const cycle = 5.2;
   flows.forEach(([id, start, dur]) => {
     for (const k of [0, 1]) {
-      const begin = (1.5 + start + k * cycle / 2).toFixed(2);
+      const begin = (BOOT + 1.5 + start + k * cycle / 2).toFixed(2);
       g += `<circle r="3.3" fill="${t.packet}" filter="url(#gl)" opacity="0">` +
         `<animateMotion dur="${cycle}s" begin="${begin}s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;${(dur / cycle).toFixed(3)};1" calcMode="linear"><mpath xlink:href="#${id}"/></animateMotion>` +
         `<animate attributeName="opacity" dur="${cycle}s" begin="${begin}s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;${(0.12 * dur / cycle).toFixed(3)};${(0.85 * dur / cycle).toFixed(3)};${(dur / cycle).toFixed(3)};1"/></circle>`;
@@ -137,7 +152,17 @@ function banner(t) {
 
   // hud
   const hud = CONTENT.hud.map(([str, c]) => ({ s: str, fill: t[c], f: c === 'accent' ? F.monoM : F.mono }));
-  s += `<g class="fade" ${delay(1.4)}>` + runs(hud, { f: F.mono, size: 13, x: 760, y: 350 }).svg + `</g>`;
+  s += `<g class="fade" ${bd(1.4)}>` + runs(hud, { f: F.mono, size: 13, x: 760, y: 350 }).svg + `</g>`;
+
+  // boot log
+  let boot = '';
+  CONTENT.boot.forEach(([tag, text], i) => {
+    const c = tag.trim() === 'OK' ? t.ok : t.warn;
+    boot += `<g class="bl" ${delay((0.1 + i * 0.17).toFixed(2))}>` + runs([
+      { s: '[', fill: t.faint }, { s: tag, f: F.monoB, fill: c }, { s: '] ', fill: t.faint }, { s: text, fill: t.fg },
+    ], { f: F.mono, size: 16, x: X, y: 112 + i * 30 }).svg + `</g>`;
+  });
+  s += `<g class="boot">${boot}</g>`;
   return close(s);
 }
 
@@ -431,6 +456,144 @@ function flagship(t) {
   return close(s);
 }
 
+/* ─────────────────────────────── RECRUITER TERMINAL ──────────────────── */
+// A typed shell session that plays once. Typing is a background-coloured cover that steps right
+// one character at a time (monospace, so every step is exactly one glyph), carrying the cursor.
+const TERM = [
+  { at: 0.5, prompt: true, type: 'sudo hire ashfak', speed: 0.07 },
+  { at: 2.3, text: [['[sudo] password for recruiter: ', 'muted']], type: '********', speed: 0.08, typeFill: 'muted' },
+  { at: 3.7, check: 'ok', text: [['access granted', 'ok']] },
+  { at: 4.1, check: 'ok', text: [['offer letter queued', 'fg'], [' · exactly-once delivery · idempotency key: ', 'muted'], ['you', 'accent']] },
+  null,
+  { at: 5.0, prompt: true, type: '# two recruiters, one interview slot, the same millisecond', speed: 0.03, typeFill: 'faint' },
+  { at: 7.4, prompt: true, type: 'book "Mon 10:00" & book "Mon 10:00"', speed: 0.05 },
+  { at: 9.9, text: [['[1] ', 'faint'], ['201 Created ', 'ok', 'b'], ['  interview confirmed: Mon 10:00', 'muted']] },
+  { at: 10.05, text: [['[2] ', 'faint'], ['409 Conflict', 'red', 'b'], ['  ashfak is already booked. next free slot: Mon 11:00', 'muted']] },
+  null,
+  { at: 10.7, prompt: true, cursor: true },
+];
+
+function terminal(t) {
+  beginDoc();
+  const Wd = 940, bar = 38, x0 = 28, y0 = bar + 34, pitch = 25, size = 14, cw = W('a', F.mono, size);
+  const H = y0 + (TERM.length - 1) * pitch + 28;
+  const prompt = [{ s: 'recruiter@github', fill: t.accent }, { s: ':~$ ', fill: t.muted }];
+  const transcript = TERM.filter(Boolean).map((l) => `${l.prompt ? '$ ' : ''}${(l.text ?? []).map((p) => p[0]).join('')}${l.type ?? ''}`).join(' / ');
+  let s = svgOpen(Wd, H, 'A recruiter at the terminal', transcript);
+  let css = `${baseCss}@keyframes ln{from{opacity:0}to{opacity:1}}.ln{animation:ln .01s linear both}
+@keyframes hide{to{opacity:0}}@keyframes blinkc{0%,49%{opacity:1}50%,100%{opacity:0}}`;
+  s += `<defs><clipPath id="body"><rect x="1" y="${bar}" width="${Wd - 2}" height="${H - bar - 1}"/></clipPath></defs>`;
+  s += `<rect x=".5" y=".5" width="${Wd - 1}" height="${H - 1}" rx="14" fill="${t.bg0}" stroke="${t.border}"/>`;
+  s += `<path d="M1 ${bar}V14.5A13.5 13.5 0 0 1 14.5 1H${Wd - 14.5}A13.5 13.5 0 0 1 ${Wd - 1} 14.5V${bar}Z" fill="${t.panel}"/><line x1="1" y1="${bar}" x2="${Wd - 1}" y2="${bar}" stroke="${t.border}"/>`;
+  ['#ff5f57', '#febc2e', '#28c840'].forEach((c, i) => { s += `<circle cx="${22 + i * 20}" cy="${bar / 2}" r="6" fill="${c}" opacity=".85"/>`; });
+  s += T('recruiter@github: ~', { f: F.mono, size: 12.5, x: Wd / 2, y: bar / 2 + 4.5, anchor: 'middle', fill: t.faint });
+
+  let covers = '';
+  TERM.forEach((l, i) => {
+    if (!l) return;
+    const y = y0 + i * pitch;
+    const parts = [...(l.prompt ? prompt : []), ...(l.text ?? []).map(([str, c, b]) => ({ s: str, fill: t[c], f: b ? F.monoB : undefined }))];
+    let x = x0, g = '';
+    if (l.check) { g += checkMark(x, y - 11, 11, t[l.check], 2); x += 20; }
+    const head = runs(parts, { f: F.mono, size, x, y });
+    g += head.svg;
+    x += head.width;
+    if (l.type) g += T(l.type, { f: F.mono, size, x, y, fill: t[l.typeFill ?? 'fg'] });
+    s += `<g class="ln" ${delay(l.at)}>${g}</g>`;
+    const cur = (cls, style) => `<rect class="${cls}" style="${style}" x="${r(x + 1)}" y="${y - 13}" width="${r(cw - 1)}" height="17" rx="1.5" fill="${t.accent}"/>`;
+    if (l.type) {
+      // cover + cursor step right together; the cursor goes when the next line starts
+      const n = l.type.length, start = l.at + 0.3, dur = n * l.speed, tw = r(n * cw);
+      const next = TERM.slice(i + 1).find(Boolean)?.at ?? start + dur + 0.5;
+      // steps end at 90% and the rest holds: a step that lands at the very end can round one glyph short
+      css += `@keyframes tp${i}{0%{transform:none}90%,100%{transform:translateX(${tw}px)}}`;
+      covers += `<g style="animation:tp${i} ${(dur / 0.9).toFixed(3)}s steps(${n},end) ${start.toFixed(2)}s both">` +
+        `<rect class="cv" x="${r(x)}" y="${y - 17}" width="${r(tw + cw + 4)}" height="23" fill="${t.bg0}"/>` +
+        cur('', `opacity:0;animation:ln .01s linear ${l.at}s both,hide .01s linear ${next}s forwards`) + `</g>`;
+    }
+    if (l.cursor) covers += cur('', `opacity:0;animation:ln .01s linear ${l.at}s both,blinkc 1.1s steps(1) ${l.at}s infinite`);
+  });
+  s += `<g clip-path="url(#body)">${covers}</g>`;
+  // still frame: the whole session, no covers or cursors
+  css += `@media (prefers-reduced-motion:reduce){.cv{opacity:0}g[clip-path] rect{opacity:0!important}}`;
+  s = s.replace('<!--DEFS-->', `<!--DEFS--><style>${css}</style>`);
+  return close(s);
+}
+
+/* ─────────────────────────────── CHAOS MONKEY ────────────────────────── */
+// A 12 s loop: a monkey unplugs api-2, the load balancer opens its circuit and retries on the
+// others, Kubernetes restarts api-2, traffic returns. Nothing is lost.
+function chaos(t) {
+  beginDoc();
+  const Wd = 940, H = 214, P = 24, C = 12;
+  const fur = t === THEMES.dark ? '#a8743f' : '#8b5a2b', face = t === THEMES.dark ? '#f0cfa5' : '#e8c39e', ink = '#24170b';
+  let s = svgOpen(Wd, H, 'Chaos drill',
+    'A cartoon monkey unplugs one of three API nodes. The load balancer opens the circuit, retries on another node, Kubernetes restarts the node, and traffic returns. Requests lost: 0.');
+  let css = baseCss;
+  s += `<rect x=".5" y=".5" width="${Wd - 1}" height="${H - 1}" rx="14" fill="${t.bg0}" stroke="${t.border}"/>`;
+  s += `<rect x="${P}" y="29" width="22" height="2.5" rx="1.25" fill="${t.accent}"/>` + T('CHAOS DRILL · EVERY 12 S', { f: F.monoM, size: 12, x: P + 32, y: 35, ls: 0.14, fill: t.accent });
+  s += T('how I like my systems to fail', { f: F.mono, size: 11.5, x: Wd - P, y: 35, anchor: 'end', fill: t.faint });
+
+  // nodes and edges
+  const node = (x, y, w, label, extra = '') => `<rect x="${x}" y="${y}" width="${w}" height="36" rx="9" fill="${t.node}" stroke="${t.nodeStroke}"/>` +
+    `<circle cx="${x + 16}" cy="${y + 18}" r="3.5" fill="${t.ok}"/>` + T(label, { f: F.monoM, size: 13.5, x: x + 28, y: y + 23, fill: t.fg }) + extra;
+  const lbx = P, ax = 226, aw = 100, ys = [62, 106, 150];
+  ys.forEach((y, i) => {
+    s += `<path id="ce${i}" d="M${lbx + 86} 124C${lbx + 150} 124 ${ax - 60} ${y + 18} ${ax - 2} ${y + 18}" fill="none" stroke="${t.edge}" stroke-width="1.5"/>`;
+  });
+  s += node(lbx, 106, 86, 'lb');
+  ys.forEach((y, i) => { s += node(ax, y, aw, `api-${i + 1}`); });
+  // api-2 down: red outline and dot while unplugged
+  s += `<g class="dn"><rect x="${ax}" y="${ys[1]}" width="${aw}" height="36" rx="9" fill="none" stroke="${t.red}" stroke-width="1.5"/><circle cx="${ax + 16}" cy="${ys[1] + 18}" r="3.5" fill="${t.red}"/></g>`;
+  // packets: api-2's lane goes quiet while it is out
+  const pk = (id, begin) => `<circle r="3" fill="${t.packet}"><animateMotion dur="1.3s" begin="${begin}s" repeatCount="indefinite"><mpath xlink:href="#${id}"/></animateMotion></circle>`;
+  s += pk('ce0', 0) + pk('ce0', 0.65) + pk('ce2', 0.3) + pk('ce2', 0.95);
+  s += `<g class="tr">${pk('ce1', 0.15) + pk('ce1', 0.8)}</g>`;
+
+  // the plug in api-2's right side, and a spark when it comes out
+  const px = ax + aw, py = ys[1] + 18;
+  s += `<line x1="${px}" y1="${py}" x2="${px + 12}" y2="${py}" stroke="${t.edge}" stroke-width="2"/>`;
+  s += `<g class="pg"><rect x="${px + 12}" y="${py - 6}" width="11" height="12" rx="2.5" fill="${t.faint}"/><line x1="${px + 23}" y1="${py}" x2="${px + 34}" y2="${py}" stroke="${t.faint}" stroke-width="2.5"/></g>`;
+  s += `<g class="sp" stroke="${t.warn}" stroke-width="1.6" stroke-linecap="round">` +
+    [[-1, -1], [1, -1], [0, -1.3], [-1, 1], [1, 1]].map(([dx, dy]) => `<line x1="${px + 13 + dx * 4}" y1="${py + dy * 4}" x2="${px + 13 + dx * 9}" y2="${py + dy * 9}"/>`).join('') + `</g>`;
+
+  // the monkey
+  const mx = px + 58, my = py;
+  s += `<g class="mk">` +
+    `<line x1="${mx - 12}" y1="${my + 7}" x2="${px + 34}" y2="${py}" stroke="${fur}" stroke-width="3.5" stroke-linecap="round"/><circle cx="${px + 34}" cy="${py}" r="3.2" fill="${fur}"/>` +
+    `<circle cx="${mx}" cy="${my + 22}" r="11" fill="${fur}"/>` +
+    `<circle cx="${mx - 14}" cy="${my - 3}" r="6.5" fill="${fur}"/><circle cx="${mx + 14}" cy="${my - 3}" r="6.5" fill="${fur}"/>` +
+    `<circle cx="${mx - 14}" cy="${my - 3}" r="3.5" fill="${face}"/><circle cx="${mx + 14}" cy="${my - 3}" r="3.5" fill="${face}"/>` +
+    `<circle cx="${mx}" cy="${my}" r="14" fill="${fur}"/><ellipse cx="${mx}" cy="${my + 3}" rx="10" ry="9" fill="${face}"/>` +
+    `<circle cx="${mx - 4}" cy="${my}" r="2" fill="${ink}"/><circle cx="${mx + 4}" cy="${my}" r="2" fill="${ink}"/>` +
+    `<path d="M${mx - 4.5} ${my + 6}Q${mx} ${my + 10.5} ${mx + 4.5} ${my + 6}" fill="none" stroke="${ink}" stroke-width="1.5" stroke-linecap="round"/></g>`;
+
+  // the log
+  const lx = 486, l0 = 66, lp = 22;
+  const lines = [
+    [2.2, [['14:02:07', 'faint'], ['  chaos  ', 'muted'], ['unplugged api-2', 'warn']]],
+    [2.7, [['14:02:07', 'faint'], ['  lb     ', 'muted'], ['api-2 failing · circuit open', 'fg']]],
+    [3.2, [['14:02:08', 'faint'], ['  lb     ', 'muted'], ['retried on api-3 · ', 'fg'], ['200 OK', 'ok']]],
+    [6.5, [['14:02:12', 'faint'], ['  k8s    ', 'muted'], ['api-2 restarted · ready', 'ok']]],
+    [7.2, [['14:02:13', 'faint'], ['  lb     ', 'muted'], ['circuit closed · traffic back', 'fg']]],
+  ];
+  lines.forEach(([at, parts], i) => {
+    s += `<g class="cl${i}">` + runs(parts.map(([str, c]) => ({ s: str, fill: t[c] })), { f: F.mono, size: 11.5, x: lx, y: l0 + i * lp }).svg + `</g>`;
+    css += blink(`cl${i}`, C, [[at, 11.3]], 0.2);
+  });
+  s += `<line x1="${lx}" y1="${H - 42}" x2="${Wd - P}" y2="${H - 42}" stroke="${t.border}" stroke-dasharray="2 4"/>`;
+  s += runs([{ s: 'requests lost ', fill: t.muted }, { s: '0', f: F.monoB, fill: t.accent }, { s: '  ·  ', fill: t.faint }, { s: 'the monkey is a volunteer', fill: t.faint }], { f: F.mono, size: 12.5, x: lx, y: H - 22 }).svg;
+
+  css += blink('dn', C, [[2.25, 6.5]], 0.1) + blink('tr', C, [[0, 2.2], [6.7, C]], 0.1) + blink('sp', C, [[2.25, 2.6]], 0.05);
+  css += frames('pg', C, [[0, 'transform:none'], [2.2, 'transform:none'], [2.45, 'transform:translateX(16px)'], [6.3, 'transform:translateX(16px)'], [6.45, 'transform:none'], [C, 'transform:none']]);
+  const up = 'transform:translate(0,0)', down = 'transform:translate(0,26px)', pulled = 'transform:translate(16px,0)';
+  css += frames('mk', C, [[0, `opacity:0;${down}`], [1.0, `opacity:0;${down}`], [1.4, `opacity:1;${up}`], [2.2, `opacity:1;${up}`], [2.45, `opacity:1;${pulled}`],
+    [5.2, `opacity:1;${pulled}`], [5.6, 'opacity:0;transform:translate(16px,26px)'], [C, `opacity:0;${down}`]]);
+  css += `@media (prefers-reduced-motion:reduce){.mk,${lines.map((_, i) => `.cl${i}`).join(',')}{opacity:1!important}.dn,.sp{opacity:0!important}.tr{opacity:1!important}}`;
+  s = s.replace('<!--DEFS-->', `<!--DEFS--><style>${css}</style>`);
+  return close(s);
+}
+
 /* ─────────────────────────────── TOOLBOX ─────────────────────────────── */
 function stack(t) {
   beginDoc();
@@ -470,6 +633,8 @@ for (const [name, t] of Object.entries(THEMES)) {
   files[`card-shortn-${name}.svg`] = card(t, 'shortn', shortnPanel);
   files[`card-nooverlap-${name}.svg`] = card(t, 'noOverlap', noOverlapPanel);
   files[`card-echoandaura-${name}.svg`] = flagship(t);
+  files[`terminal-${name}.svg`] = terminal(t);
+  files[`chaos-${name}.svg`] = chaos(t);
   files[`stack-${name}.svg`] = stack(t);
 }
 for (const [f, svg] of Object.entries(files)) {
