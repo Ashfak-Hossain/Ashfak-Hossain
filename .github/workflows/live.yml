@@ -1,0 +1,63 @@
+name: Live profile cards
+
+# Hourly: checks the deployed projects' health endpoints, refreshes the GitHub and Codeforces
+# stats, and force-pushes the SVGs as a single commit to the `output` branch, so master's
+# history stays clean. The README reads them from raw.githubusercontent.com/.../output/.
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ['assets/src/**', '.github/workflows/live.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-cards
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore the check history
+        run: |
+          mkdir -p out
+          if git fetch --depth=1 origin output; then
+            git show FETCH_HEAD:data.json > out/data.json || rm -f out/data.json
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: assets/src/package-lock.json
+
+      - name: Install
+        working-directory: assets/src
+        run: npm ci
+
+      - name: Check, fetch, render
+        working-directory: assets/src
+        env:
+          # Optional: a personal token saved as the STATS_TOKEN secret (scope read:user) also
+          # counts private contributions. The default token sees public activity only.
+          GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || github.token }}
+        run: node live.mjs --out ../../out
+
+      - name: Publish to the output branch
+        working-directory: out
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          git init -q -b output
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -qm "Live cards $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output

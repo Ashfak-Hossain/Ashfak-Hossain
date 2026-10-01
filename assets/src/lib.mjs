@@ -75,14 +75,14 @@ export function T(str, o) {
   return `<g ${attrs.join(' ')}>${inner}</g>`;
 }
 
-/** several differently-coloured runs on one baseline; returns { svg, width } */
+/** several differently-coloured runs on one baseline (each may override font and size); returns { svg, width } */
 export function runs(parts, { f, size, x = 0, y = 0, ls = 0 }) {
   let cx = x;
   let svg = '';
   for (const p of parts) {
-    const pf = p.f || f;
-    svg += T(p.s, { f: pf, size, x: cx, y, ls, fill: p.fill, cls: p.cls });
-    cx += W(p.s, pf, size, ls);
+    const pf = p.f || f, ps = p.size || size;
+    svg += T(p.s, { f: pf, size: ps, x: cx, y, ls, fill: p.fill, cls: p.cls });
+    cx += W(p.s, pf, ps, ls);
   }
   return { svg, width: cx - x };
 }
