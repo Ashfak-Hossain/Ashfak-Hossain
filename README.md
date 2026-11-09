@@ -165,7 +165,7 @@ transaction as the insert, so a crash or restart can neither lose a click nor co
 
 ## Hiring?
 
-<a href="https://linkedin.com/in/ashfak-hossain-evan">
+<a href="https://www.linkedin.com/in/ashfak-evan">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-dark.svg">
     <img alt="A terminal session. A recruiter runs sudo hire ashfak: access granted, offer letter queued with exactly-once delivery and idempotency key you. Then two recruiters book the same interview slot at the same millisecond: one gets 201 Created, the other 409 Conflict, ashfak is already booked, next free slot Mon 11:00." src="assets/terminal-light.svg" width="100%">
@@ -174,7 +174,7 @@ transaction as the insert, so a crash or restart can neither lose a click nor co
 
 <p align="center">
   <a href="https://ashfak.dev"><b>ashfak.dev</b></a> ·
-  <a href="https://linkedin.com/in/ashfak-hossain-evan">LinkedIn</a> ·
+  <a href="https://www.linkedin.com/in/ashfak-evan">LinkedIn</a> ·
   <a href="https://twitter.com/ashfak_evan">X</a> ·
   <a href="https://stackoverflow.com/users/19765322">Stack Overflow</a> ·
   <a href="https://dev.to/berlin">dev.to</a>
